@@ -1,0 +1,299 @@
+<div class='cha'>
+<h1 class='cha-h'>College hockey alumni in the NHL, 1960+</h1>
+<div class='cha-f' style='max-width:360px'><span>Find a player (works from any tab)</span><div data-draw='g_search' data-source='player_profiles'></div></div>
+<div data-draw='panCss'></div>
+<div class='cha-tabs' role='tablist' data-draw='tabs'></div>
+<div class='cha-filters' id='fBar'>
+<div class='cha-f' id='fDec'><span>NHL decade</span><div class='cha-ms' data-draw='s_decade'></div></div>
+<div class='cha-f'><span>Position</span><div class='cha-ms' data-draw='s_pos'></div></div>
+<div class='cha-f'><span>Current NCAA conference</span><div class='cha-ms' data-draw='s_conf' data-source='schools'></div></div>
+<button type='button' class='cha-btn' id='f-reset'>Reset</button>
+<button type='button' class='cha-btn' id='x-view' title='Download the tables on this tab, with the current filters, as an Excel file'>Export this tab to Excel</button>
+<button type='button' class='cha-btn' id='x-all' title='Download every underlying dataset as an Excel file'>Export all data to Excel</button>
+</div>
+<div class='cha-panel' id='panR'>
+<p class='cha-lead'>What this dashboard covers, what makes it different from the public sources, and how we checked it.</p>
+<p class='cha-note' style='margin:0'><b>Created by Brian Walby</b>, 2026. Built with Claude, an AI assistant from Anthropic.</p>
+<section class='cha-card' style='border-width:2px'><h2>Sources</h2>
+<p style='margin:0 0 8px'>Every number on this dashboard comes from the sources below. Data was pulled on <b>November 15, 2026</b>.</p>
+<ul style='margin:0 0 8px;padding-left:18px;display:flex;flex-direction:column;gap:6px'>
+<li><b>NHL public stats API (api-web.nhle.com)</b> is the source for all NHL games, goals, assists and points by player and season, for player profiles (draft year, round and pick, birth date, college seasons, Stanley Cups, NHL trophies), for the 2026-27 to-date stats and for the league-wide totals used in every share-of-NHL figure. It is an unofficial, undocumented interface, and the data belongs to the NHL.</li>
+<li><b>Hobey Baker Memorial Award published winners list</b> is the source for Hobey winners, matched to players by name and school. Of the 46 winners from 1981 to 2026, 39 played in the NHL and are tagged. The other six never played an NHL game (Scott Fusco 1986, Lane MacDonald 1989, Marty Sertich 2005, Ryan Duncan 2007, Jack Connolly 2012, Dryden McKay 2022), and the 2026 winner, Max Plante, is still in college.</li>
+<li><b>Compiled by hand for this dashboard:</b> each school's current (2026-27) conference, and each program's first Division I season. For six programs the start year (and, for defunct programs, the last season) was taken from Wikipedia and College Hockey Historian and is approximate: Alabama-Huntsville 1986-87, American International 1996-97 (closed after 2023-24), Canisius 1998-99 (closed after 2023-24), Illinois-Chicago 1981-82 (closed after 1995-96), Mercyhurst 1999-2000 (closed after 2024-25) and Saint Louis 1970-71 (closed after 1977-78). Sources disagree by a year for American International and Mercyhurst.</li>
+<li><b>Used only to cross-check, not as a data source:</b> Wikipedia's "Former NCAA players in the National Hockey League" table (<a href='https://en.wikipedia.org/wiki/Former_NCAA_players_in_the_National_Hockey_League' target='_blank' rel='noopener'>link</a>), compared school by school (see How we checked it below).</li>
+</ul>
+<p class='cha-note'>Calculated by this dashboard, not taken from a source: alumni credit to a last school, decade and season totals, share of NHL, points per game, alumni per 10 program-years, age at debut and years from college to the NHL.</p></section>
+<section class='cha-card'><h2>What this is</h2>
+<p style='margin:0 0 8px'>An interactive view of how NCAA Division I college hockey alumni have performed in the NHL, from the 1960s to today, for fans, program boosters, recruiters and anyone comparing programs.</p>
+<ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px'>
+<li><b>Who:</b> 1,954 alumni from 59 Division I programs, credited to the last college on their NHL profile (a transfer counts only for the final school).</li>
+<li><b>What:</b> NHL regular-season games, goals, assists and points, plus draft position, Stanley Cups, Hobey Baker wins and NHL trophies.</li>
+<li><b>When:</b> "1960+" in the title means NHL seasons from 1960-61 onward only. Games played before 1960-61 are not counted, so college players of earlier eras (for example Gerry Geran, Dartmouth, in 1917-18) are not included. The data run 1960-61 through 2026-27 to date (November 15, 2026), in seven decades. The 2020s include the partial 2026-27 season. The WHA is not included.</li>
+<li><b>Source:</b> the NHL public stats API, pulled November 15, 2026. The 2026-27 season is still in progress; this copy is a snapshot as of that date.</li>
+</ul></section>
+<section class='cha-card'><h2>Where to start</h2>
+<ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px'>
+<li><button type='button' class='cha-btn' data-go='alumni'>Alumni production</button> Which schools and conferences produced the most NHL points, goals and games.</li>
+<li><button type='button' class='cha-btn' data-go='impact'>Share by decade</button> College alumni as a share of the whole NHL, decade by decade.</li>
+<li><button type='button' class='cha-btn' data-go='seasons'>Share by season</button> The same share for each NHL season, with a season picker.</li>
+<li><button type='button' class='cha-btn' data-go='players'>Players</button> Every alumnus, with career drill-down (click a name).</li>
+<li><button type='button' class='cha-btn' data-go='dev'>Development &amp; honors</button> Draft, age at debut, years from college to NHL, Cups and awards by school.</li>
+<li><button type='button' class='cha-btn' data-go='now'>Active now</button> Alumni playing in the NHL this season, by school and by NHL team.</li>
+<li><button type='button' class='cha-btn' data-go='prog'>Program context</button> Output adjusted for how long each program has played at Division I.</li>
+<li><button type='button' class='cha-btn' data-go='h2h'>Head to head</button> Compare any two schools side by side on output, share of the NHL, development and honors.</li>
+</ul>
+<p class='cha-note'>The search box at the top finds any player from any tab. Each tab can be downloaded to Excel with its current filters, and the full underlying data is one click away: <button type='button' class='cha-btn' id='x-all2'>Export all data to Excel</button></p></section>
+<section class='cha-card'><h2>Why this is different from what is already public</h2>
+<p style='margin:0 0 8px'>College hockey alumni in the NHL are well covered in pieces. None of the public sources we found is built for the questions this dashboard answers:</p>
+<ul style='margin:0 0 8px;padding-left:18px;display:flex;flex-direction:column;gap:4px'>
+<li><b>College Hockey Inc.</b> publishes yearly headcounts (how many alumni played, which schools had the most) and a roster matchup tool. It counts players; it does not total their production, compare decades or show share of the league.</li>
+<li><b>Wikipedia</b> has one static table per school with players, most games and Cups. No points, no time dimension, no filters.</li>
+<li><b>The Hockey News and The Hockey Writers</b> run editorial rankings and best-player features: one era or one list at a time, not something you can re-slice.</li>
+<li><b>Elite Prospects</b> tracks college and pro careers player by player, not alumni output rolled up by school.</li>
+</ul>
+<p style='margin:0 0 4px'><b>Use cases built here that none of them address:</b></p>
+<ul style='margin:0 0 8px;padding-left:18px;display:flex;flex-direction:column;gap:4px'>
+<li>Career NHL points, goals, assists and games by school or conference, filtered by decade, position and conference.</li>
+<li>College alumni as a share of all NHL games, goals, assists and points, by decade and by season.</li>
+<li>Fair comparisons across programs of different ages (alumni per 10 program-years).</li>
+<li>Development paths by school: draft status, age at NHL debut, years from college to the NHL, Cups and trophies.</li>
+<li>A view of 2026-27 alumni, by school and NHL team (snapshot as of November 15, 2026).</li>
+<li>Click-through from any chart or table to a player career, and Excel export of everything behind the screen.</li>
+</ul>
+<p class='cha-note'>Based on a search of public sources on November 14, 2026. A source we did not find may exist.</p></section>
+<section class='cha-card'><h2>How we checked it</h2>
+<p style='margin:0 0 8px'>We compared the number of alumni per school with Wikipedia's table (July 2025 snapshot). Across the 56 programs it lists with alumni, 14 match exactly, 38 are within one player and 51 are within three.</p>
+<p style='margin:0 0 8px'>We also re-scanned the NHL profiles of all 7,391 players who have played in the NHL since 1960-61 (November 14, 2026). The NHL tags college seasons with many different league labels, and five alumni whose seasons carry the Atlantic Hockey tag had been missed: Chris Tanev (RIT), Dave Forbes (American International), Jamie Hunt (Mercyhurst), Cory Conacher (Canisius) and Cole Schneider (UConn). They are now included. A player whose NHL profile shows no college season at all cannot be found this way. The 15 alumni who made their NHL debut in 2026-27 were found from this season's rosters.</p>
+<p style='margin:0 0 8px'>Hobey Baker winners were checked against the award's winners list: the 39 winners who reached the NHL are all tagged, and the missing years (1986, 1989, 2005, 2007, 2012, 2022) are winners who never played an NHL game.</p>
+<p style='margin:0 0 8px'>Every alumnus's Stanley Cup count was checked against the NHL's own records (1,914 players compared, no differences), and a spot-check of all profiles found no duplicates.</p>
+<p style='margin:0'>Remaining differences from Wikipedia come mainly from method. This dashboard credits each player to his last school only, while Wikipedia can list a player at several schools. Five schools still differ by four or more players (Alaska Anchorage, Boston University, Denver, Harvard and Union). Wikipedia's Stanley Cup totals by school also differ for several programs (Denver: 10 here, 16 there). Because the Cup counts here match the NHL's records player by player, we believe the gap is Wikipedia's counting method, but we could not confirm what it is.</p></section>
+<section class='cha-card'><h2>Not covered</h2>
+<ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px'>
+<li>Division III, Division II and Canadian university (U Sports) alumni. This is a deliberate scope choice: the dashboard is about NCAA Division I.</li>
+<li>All-Star selections (no complete public source).</li>
+<li>Playoff statistics, and players who started in college but never played an NHL game.</li>
+</ul></section>
+</div>
+<div class='cha-panel' id='panA'>
+<p class='cha-lead' data-draw='leadA' data-source='agg'></p>
+<section class='cha-card'><h2>What stands out</h2><ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px' data-draw='insA' data-source='agg'></ul></section>
+<div class='cha-filters'>
+<label>Rank by<select class='dash-select' data-draw='s_by' aria-label='Group rows by'></select></label>
+<label>Chart measure<select class='dash-select' data-draw='s_metric' aria-label='Chart measure'></select></label>
+<div class='cha-f'><span>School players</span><div class='cha-ms' data-draw='s_school' data-source='schools'></div></div>
+</div>
+<div class='cha-kpis'>
+<div class='cha-kpi'><b data-draw='kA_n' data-source='totals' data-field='n' data-row='0'>—</b><span class='cha-cap' data-draw='kA_ncap'></span></div>
+<div class='cha-kpi'><b data-draw='kA_players' data-source='totals' data-field='players' data-row='0'>—</b><span class='cha-cap'>Players</span></div>
+<div class='cha-kpi'><b data-draw='kA_gp' data-source='totals' data-field='gp' data-row='0'>—</b><span class='cha-cap'>Games played</span></div>
+<div class='cha-kpi'><b data-draw='kA_goals' data-source='totals' data-field='goals' data-row='0'>—</b><span class='cha-cap'>Goals</span></div>
+<div class='cha-kpi'><b data-draw='kA_assists' data-source='totals' data-field='assists' data-row='0'>—</b><span class='cha-cap'>Assists</span></div>
+<div class='cha-kpi'><b data-draw='kA_points' data-source='totals' data-field='points' data-row='0'>—</b><span class='cha-cap'>Points</span></div>
+<div class='cha-kpi'><b data-draw='kA_ppg' data-source='totals' data-field='ppg' data-row='0'>—</b><span class='cha-cap'>Points per game</span></div>
+</div>
+<section class='cha-card'>
+<h2 data-draw='chAh' data-source='agg'>Top 15 schools</h2>
+<div class='cha-chart' data-draw='chA' data-source='agg'></div>
+</section>
+<section class='cha-card'>
+<h2 data-draw='tbAh' data-source='agg'>All schools</h2>
+<div class='cha-wrap' data-draw='tbA' data-source='agg'></div>
+<p class='cha-note'>Click any column heading to sort. Click a school row to add or remove it in the player list below. With several decades selected, a player active in more than one counts once in each decade for the totals, and once for Players.</p>
+</section>
+<section class='cha-card'>
+<h2 data-draw='plh' data-source='plist'>Players by school</h2>
+<div class='cha-wrap' data-draw='plT' data-source='plist'></div>
+<p class='cha-note'>Players are ranked within the chosen decade, position and conference filters. Sorting by points per game puts short careers on top, so check games played alongside it.</p>
+</section>
+</div>
+<div class='cha-panel' id='panB'>
+<p class='cha-lead' data-draw='leadB' data-source='itot'></p>
+<section class='cha-card'><h2>What stands out</h2><ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px' data-draw='insB' data-source='impact'></ul></section>
+<div class='cha-filters'>
+<label>Rank by<select class='dash-select' data-draw='s_iby' aria-label='Group rows by'></select></label>
+<label>Chart measure<select class='dash-select' data-draw='s_imetric' aria-label='Chart measure'></select></label>
+</div>
+<div class='cha-kpis'>
+<div class='cha-kpi'><b data-draw='kB_sgp' data-source='itot' data-field='sgp' data-row='0'>—</b><span class='cha-cap'>of NHL games played</span></div>
+<div class='cha-kpi'><b data-draw='kB_sgoals' data-source='itot' data-field='sgoals' data-row='0'>—</b><span class='cha-cap'>of NHL goals</span></div>
+<div class='cha-kpi'><b data-draw='kB_sassists' data-source='itot' data-field='sassists' data-row='0'>—</b><span class='cha-cap'>of NHL assists</span></div>
+<div class='cha-kpi'><b data-draw='kB_spoints' data-source='itot' data-field='spoints' data-row='0'>—</b><span class='cha-cap'>of NHL points</span></div>
+<div class='cha-kpi'><b data-draw='kB_players' data-source='itot' data-field='players' data-row='0'>—</b><span class='cha-cap'>Alumni players</span></div>
+</div>
+<section class='cha-card'>
+<h2 data-draw='trh' data-source='trend'>College share of the NHL by decade</h2>
+<div class='cha-chart' data-draw='trend' data-source='trend'></div>
+<p class='cha-note'>Uses the position and conference filters; ignores the decade filter so the decades can be compared.</p>
+</section>
+<section class='cha-card'>
+<h2 data-draw='chBh' data-source='impact'>Top 15 schools</h2>
+<div class='cha-chart' data-draw='chB' data-source='impact'></div>
+</section>
+<section class='cha-card'>
+<h2 data-draw='tbBh' data-source='impact'>All schools</h2>
+<div class='cha-wrap' data-draw='tbB' data-source='impact'></div>
+<p class='cha-note'>Each percentage is that row's share of all NHL games, goals, assists or points in the same decade(s) and position group(s). Click a heading to sort.</p>
+</section>
+</div>
+<div class='cha-panel' id='panC'>
+<p class='cha-lead' data-draw='leadC' data-source='stot'></p>
+<section class='cha-card'><h2>What stands out</h2><ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px' data-draw='insC' data-source='sbyseason'></ul></section>
+<div class='cha-filters'>
+<div class='cha-f'><span>Season</span><div class='cha-ms' data-draw='s_season' data-source='league_seasons'></div></div>
+<label>Rank by<select class='dash-select' data-draw='s_sby' aria-label='Group rows by'></select></label>
+<label>Chart measure<select class='dash-select' data-draw='s_smetric' aria-label='Chart measure'></select></label>
+</div>
+<div class='cha-kpis'>
+<div class='cha-kpi'><b data-draw='kC_sgp' data-source='stot' data-field='sgp' data-row='0'>—</b><span class='cha-cap'>of NHL games played</span></div>
+<div class='cha-kpi'><b data-draw='kC_sgoals' data-source='stot' data-field='sgoals' data-row='0'>—</b><span class='cha-cap'>of NHL goals</span></div>
+<div class='cha-kpi'><b data-draw='kC_sassists' data-source='stot' data-field='sassists' data-row='0'>—</b><span class='cha-cap'>of NHL assists</span></div>
+<div class='cha-kpi'><b data-draw='kC_spoints' data-source='stot' data-field='spoints' data-row='0'>—</b><span class='cha-cap'>of NHL points</span></div>
+<div class='cha-kpi'><b data-draw='kC_players' data-source='stot' data-field='players' data-row='0'>—</b><span class='cha-cap'>Player-seasons</span></div>
+</div>
+<section class='cha-card'>
+<h2 data-draw='sth' data-source='sbyseason'>College share of the NHL by season</h2>
+<div class='cha-chart' data-draw='strend' data-source='sbyseason'></div>
+<p class='cha-note'>Uses the decade, position and conference filters; ignores the season menu so every season in scope stays visible. 2026-27 is a partial season (through November 15, 2026).</p>
+</section>
+<section class='cha-card'>
+<h2>Season by season</h2>
+<div class='cha-wrap' data-draw='stbl' data-source='sbyseason'></div>
+<p class='cha-note'>Click a season row to add or remove it in the Season menu; the rankings below then cover only the chosen seasons. Player-seasons counts each alumnus once per season he played.</p>
+</section>
+<section class='cha-card'>
+<h2 data-draw='chCh' data-source='srank'>Top 15 schools</h2>
+<div class='cha-chart' data-draw='chC' data-source='srank'></div>
+</section>
+<section class='cha-card'>
+<h2 data-draw='tbCh' data-source='srank'>All schools</h2>
+<div class='cha-wrap' data-draw='tbC' data-source='srank'></div>
+<p class='cha-note'>Each percentage is that row's share of all NHL games, goals, assists or points in the chosen seasons and position group(s). Click a heading to sort.</p>
+</section>
+</div>
+<div class='cha-panel' id='panD'>
+<p class='cha-lead' data-draw='leadD' data-source='pall'></p>
+<section class='cha-card'><h2>What stands out</h2><ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px' data-draw='insD' data-source='pall'></ul></section>
+<section class='cha-card'><h2>How to open a player's career</h2><ol style='margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px'><li>Narrow the list with the filters above, or type part of a name in the search box and press Enter.</li><li>In the All players table further down, click a player's name (blue and underlined).</li><li>The page jumps to the Player detail card: draft, honors, every NHL season and a chart. Click Clear to close it.</li></ol></section>
+<div class='cha-filters'>
+<div class='cha-f'><span>Season</span><div class='cha-ms' data-draw='s_pseason' data-source='player_seasons'></div></div>
+<div class='cha-f'><span>School</span><div class='cha-ms' data-draw='s_pschool' data-source='schools'></div></div>
+<div class='cha-f'><span>Player name contains</span><div data-draw='s_q'></div></div>
+<label>Draft<select class='dash-select' data-draw='s_pdraft' aria-label='Draft status'></select></label>
+<label>Honors<select class='dash-select' data-draw='s_phonor' aria-label='Honors'></select></label>
+<label>Minimum games played<select class='dash-select' data-draw='s_mingp' aria-label='Minimum games played'></select></label>
+<label>Chart measure<select class='dash-select' data-draw='s_tmetric' aria-label='Chart measure'></select></label>
+</div>
+<section class='cha-card'>
+<h2 data-draw='chDh' data-source='pall'>Top 15 players</h2>
+<div class='cha-chart' data-draw='chD' data-source='pall'></div>
+</section>
+<section class='cha-card'>
+<h2 data-draw='pcH' data-source='pcard'>Player detail</h2>
+<div class='cha-wrap' data-draw='pcB' data-source='pcard'></div>
+</section>
+<section class='cha-card'>
+<h2 data-draw='tbDh' data-source='pall'>All players</h2>
+<p class='cha-note' style='margin:0 0 6px'><b>Click a player's name to open his career detail.</b></p>
+<div class='cha-wrap' data-draw='tbD' data-source='pall'></div>
+<p class='cha-note'>Uses the decade, position and conference filters above, plus the Season menu (one or several NHL seasons within the decades in scope), so a player's totals cover only what is selected. A player credited to one school is listed once, with his totals added across the selected decades. Click a heading to sort and click a player to open his career detail above; the table shows the first 300 rows.</p>
+</section>
+</div>
+<div class='cha-panel' id='panE'>
+<p class='cha-lead' data-draw='leadE' data-source='devtot'></p>
+<section class='cha-card'><h2>What stands out</h2><ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px' data-draw='insE' data-source='dev'></ul></section>
+<div class='cha-filters'>
+<label>Rank by<select class='dash-select' data-draw='s_dby' aria-label='Group rows by'></select></label>
+<label>Chart measure<select class='dash-select' data-draw='s_dmetric' aria-label='Chart measure'></select></label>
+</div>
+<div class='cha-kpis'>
+<div class='cha-kpi'><b data-draw='kE_players' data-source='devtot' data-field='players' data-row='0'>—</b><span class='cha-cap'>Players</span></div>
+<div class='cha-kpi'><b data-draw='kE_pd' data-source='devtot' data-field='pdrafted' data-row='0'>—</b><span class='cha-cap'>Drafted</span></div>
+<div class='cha-kpi'><b data-draw='kE_r1' data-source='devtot' data-field='r1' data-row='0'>—</b><span class='cha-cap'>First-round picks</span></div>
+<div class='cha-kpi'><b data-draw='kE_age' data-source='devtot' data-field='avgAge' data-row='0'>—</b><span class='cha-cap'>Avg age at NHL debut</span></div>
+<div class='cha-kpi'><b data-draw='kE_yrs' data-source='devtot' data-field='avgYrs' data-row='0'>—</b><span class='cha-cap'>Avg years college to NHL</span></div>
+<div class='cha-kpi'><b data-draw='kE_cup' data-source='devtot' data-field='cupPl' data-row='0'>—</b><span class='cha-cap'>Stanley Cup winners</span></div>
+<div class='cha-kpi'><b data-draw='kE_g500' data-source='devtot' data-field='g500' data-row='0'>—</b><span class='cha-cap'>500+ game players</span></div>
+</div>
+<section class='cha-card'>
+<h2 data-draw='chEh' data-source='dev'>Top 15</h2>
+<div class='cha-chart' data-draw='chE' data-source='dev'></div>
+</section>
+<section class='cha-card'>
+<h2 data-draw='tbEh' data-source='dev'>All schools</h2>
+<div class='cha-wrap' data-draw='tbE' data-source='dev'></div>
+<p class='cha-note'>Uses the decade, position and conference filters above. Each player counts once. Share drafted, average age and average years need at least 10 players to appear in the chart. Click a heading to sort.</p>
+</section>
+</div>
+<div class='cha-panel' id='panF'>
+<p class='cha-lead' data-draw='leadF' data-source='curtot'></p>
+<section class='cha-card'><h2>What stands out</h2><ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px' data-draw='insF' data-source='cur'></ul></section>
+<div class='cha-filters'>
+<label>Rank by<select class='dash-select' data-draw='s_nby' aria-label='Group rows by'></select></label>
+<label>Chart measure<select class='dash-select' data-draw='s_nmetric' aria-label='Chart measure'></select></label>
+</div>
+<div class='cha-kpis'>
+<div class='cha-kpi'><b data-draw='kF_players' data-source='curtot' data-field='players' data-row='0'>—</b><span class='cha-cap'>Alumni on NHL rosters</span></div>
+<div class='cha-kpi'><b data-draw='kF_gp' data-source='curtot' data-field='gp' data-row='0'>—</b><span class='cha-cap'>Games played</span></div>
+<div class='cha-kpi'><b data-draw='kF_goals' data-source='curtot' data-field='goals' data-row='0'>—</b><span class='cha-cap'>Goals</span></div>
+<div class='cha-kpi'><b data-draw='kF_assists' data-source='curtot' data-field='assists' data-row='0'>—</b><span class='cha-cap'>Assists</span></div>
+<div class='cha-kpi'><b data-draw='kF_points' data-source='curtot' data-field='points' data-row='0'>—</b><span class='cha-cap'>Points</span></div>
+<div class='cha-kpi'><b data-draw='kF_r1' data-source='curtot' data-field='r1' data-row='0'>—</b><span class='cha-cap'>First-round picks</span></div>
+<div class='cha-kpi'><b data-draw='kF_rk' data-source='curtot' data-field='rookies' data-row='0'>—</b><span class='cha-cap'>First NHL season</span></div>
+</div>
+<section class='cha-card'>
+<h2 data-draw='chFh' data-source='cur'>Top 15</h2>
+<div class='cha-chart' data-draw='chF' data-source='cur'></div>
+</section>
+<section class='cha-card'>
+<h2 data-draw='tbFh' data-source='cur'>All schools</h2>
+<div class='cha-wrap' data-draw='tbF' data-source='cur'></div>
+<p class='cha-note'>2026-27 regular season to date (stats as of November 15, 2026). Uses the position and conference filters; the decade filter does not apply. Click a heading to sort.</p>
+</section>
+<section class='cha-card'>
+<h2 data-draw='plFh' data-source='curp'>Players</h2>
+<div class='cha-wrap' data-draw='plF' data-source='curp'></div>
+</section>
+</div>
+<div class='cha-panel' id='panG'>
+<p class='cha-lead' data-draw='leadG' data-source='progd'></p>
+<section class='cha-card'><h2>What stands out</h2><ul style='margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px' data-draw='insG' data-source='progd'></ul></section>
+<div class='cha-filters'>
+<label>Rank by<select class='dash-select' data-draw='s_gby' aria-label='Group rows by'></select></label>
+<label>Chart measure<select class='dash-select' data-draw='s_gmetric' aria-label='Chart measure'></select></label>
+</div>
+<section class='cha-card'>
+<h2 data-draw='chGh' data-source='progd'>Top 15</h2>
+<div class='cha-chart' data-draw='chG' data-source='progd'></div>
+</section>
+<section class='cha-card'>
+<h2 data-draw='tbGh' data-source='progd'>All programs</h2>
+<div class='cha-wrap' data-draw='tbG' data-source='progd'></div>
+<p class='cha-note'>Uses the position and conference filters; the decade filter does not apply, because alumni are counted over all decades. Program-years run from the later of a program's Division I start and 1960-61 through 2026-27 (in progress), so a program that paused play is still counted; programs that closed (American International, Canisius, Illinois-Chicago, Mercyhurst, Saint Louis) are counted only through their last season. Alumni per 10 program-years is alumni divided by program-years, times ten. Start years for Alabama-Huntsville, American International, Canisius, Illinois-Chicago, Mercyhurst and Saint Louis are approximate. Click a heading to sort.</p>
+</section>
+</div>
+<div class='cha-panel' id='panH'>
+<p class='cha-lead' data-draw='leadH' data-source='h2h'></p>
+<div class='cha-filters'>
+<label>School A<select class='dash-select' data-draw='s_h1' data-source='schools' aria-label='School A'></select></label>
+<label>School B<select class='dash-select' data-draw='s_h2' data-source='schools' aria-label='School B'></select></label>
+<button type='button' class='cha-btn' id='h-swap'>Swap</button>
+</div>
+<section class='cha-card'>
+<h2 data-draw='hH' data-source='h2h'>Head to head</h2>
+<div class='cha-wrap' data-draw='tbH' data-source='h2h'></div>
+<p class='cha-note'>Uses the decade and position filters; the conference filter does not apply. The better value in each row is in bold (for age at debut and years to the NHL, lower is better; program-years is not ranked). Share of the NHL is each school's share of all NHL games or points in the chosen decades and positions. Share drafted, age and years to the NHL are averages over each school's alumni in view, so small groups can swing. Program-years run from the program's first Division I season to its last (or 2026-27).</p>
+</section>
+</div>
+<details>
+<summary>Definitions and caveats</summary>
+<p>Stats are NHL regular-season games, goals, assists and points. Decades are 1960-61 to 1969-70 (very few alumni; only 23 are tracked), 1970-71 to 1979-80 (NHL only; the WHA is not included), 1980-81 to 1989-90, 1990-91 to 1999-00, 2000-01 to 2009-10 (no 2004-05 season), 2010-11 to 2019-20, and 2020-21 to 2026-27 (seven seasons; 2026-27 is partial, with stats as of November 15, 2026). The decade, position, conference and school menus accept several choices at once; leaving one empty means all.</p>
+<p>Alumni are credited to the last college program on their NHL profile, so a transfer counts only for the final school. Forwards are C, L and R; defensemen are D; goalies are G. Players with no college season on their profile are not alumni here.</p>
+<p>Share of the NHL divides alumni totals by the league-wide totals for every NHL player in the same decade and position group. Alumni means players from the tracked programs only, so players from other colleges are in the league total but not in the numerator, and the shares understate total college impact. A player's NHL totals count all his NHL games in the decade, whenever his college years were.</p>
+<p>Conferences are each school's current (2026-27) alignment, assigned by hand; Notre Dame is Big Ten. Alaska, Alaska Anchorage, Alabama-Huntsville and the now-defunct Canisius, Illinois-Chicago and Saint Louis programs are grouped as Other / unverified. UMass is merged under its several NHL-data spellings; UMass Lowell is separate.</p>
+<p>This dashboard covers NCAA Division I programs only. Players from Division II and III colleges, Canadian universities (U Sports) and club programs are not counted as alumni.</p>
+<p>Development and honors: draft data (year, round, overall pick), birth date and Stanley Cups and individual NHL trophies come from NHL player profiles. Age at debut is age on October 1 of a player's first NHL season. Years from college to NHL is that season's start year minus the start year of his last Division I college season. Hobey Baker winners come from the award's published winners list, matched by name and school. Only winners who played in the NHL are counted (39 of the 46 winners through 2026), so every Hobey count here is NHL players only. All-Star selections are not available from the NHL data and are not included. 500+ game players use a player's career NHL games across all decades shown, regular season only.</p>
+<p>Active now covers 2026-27 regular-season stats as of November 15, 2026. A player's college is taken from his last Division I team in his profile.</p>
+<p>Source: NHL public stats API (club-stats and player profiles), pulled November 15, 2026.</p>
+</details>
+<p class='cha-note' style='margin:0'>Created by Brian Walby, 2026. Data: NHL public stats API, pulled November 15, 2026.</p>
+</div>
