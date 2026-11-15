@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>College Hockey Alumni in the NHL, 1960+ | Brian Walby</title>
+<meta name="description" content="Interactive dashboard of NCAA Division I college hockey alumni in the NHL, 1960-61 to 2026-27. Created by Brian Walby.">
+<style>
+:root{color-scheme:light;
+--font-anthropic-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+--font-anthropic-serif:Georgia,'Times New Roman',serif;
+--color-fg:#1f1f1d;--color-fg-muted:#5f5f5a;--color-border-line:#dedcd5;--color-panel:#ffffff;--color-bg-hover:rgba(127,127,127,.08);
+--cds-gap-sm:8px;--cds-gap-md:12px;--cds-gap-lg:16px;
+--cds-font-size-title:24px;--cds-font-size-heading:16px;--cds-font-size-body:15px;--cds-font-size-caption:13px;
+--cds-font-weight-medium:600;--cds-radius:6px;--cds-pad-md:12px;--cds-pad-lg:16px;
+--cds-surface-popover:#ffffff;--cds-border:#cfcdc5;--cds-shadow-popover:0 4px 14px rgba(0,0,0,.15);--cds-text-secondary:#555550}
+html,body{margin:0;background:#faf9f5;color:var(--color-fg)}
+body{font-family:var(--font-anthropic-sans);font-size:var(--cds-font-size-body);line-height:1.45}
+#app{max-width:1200px;margin:0 auto;padding:20px 16px 40px}
+.dash-select{font:inherit;font-size:var(--cds-font-size-caption);padding:6px 10px;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:var(--color-panel);color:var(--color-fg)}
+.cha{display:flex;flex-direction:column;gap:var(--cds-gap-lg);font-family:var(--font-anthropic-sans);color:var(--color-fg)}
+.cha-panel{display:flex;flex-direction:column;gap:var(--cds-gap-lg)}
+.cha-panel[hidden]{display:none}
+.cha-h{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);margin:0}
+.cha-tabs{display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid var(--color-border-line)}
+.cha-tab{font:inherit;padding:8px 14px;border:0;border-bottom:2px solid transparent;background:none;color:var(--color-fg-muted);cursor:pointer}
+.cha-tab.on{color:var(--color-fg);border-bottom-color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.cha-lead{margin:0;color:var(--color-fg-muted);font-size:var(--cds-font-size-body)}
+.cha-filters{display:flex;flex-wrap:wrap;gap:var(--cds-gap-md);align-items:flex-end}
+.cha-filters label,.cha-f{display:flex;flex-direction:column;gap:4px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.cha-ms{position:relative;min-width:170px}
+.cha-ms summary{list-style:none;cursor:pointer;padding:6px 28px 6px 10px;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:var(--color-panel);color:var(--color-fg);position:relative;white-space:nowrap}
+.cha-ms summary::-webkit-details-marker{display:none}
+.cha-ms summary::after{content:'\25be';position:absolute;right:10px}
+.cha-ms .pn{position:absolute;z-index:5;top:100%;left:0;margin-top:2px;min-width:100%;max-height:280px;overflow:auto;background:var(--cds-surface-popover,var(--color-panel));border:1px solid var(--color-border-line);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);padding:6px;display:flex;flex-direction:column;gap:2px}
+.cha-ms .pn label{flex-direction:row;align-items:center;gap:8px;padding:4px 6px;color:var(--color-fg);white-space:nowrap;cursor:pointer}
+.cha-btn{font:inherit;font-size:var(--cds-font-size-caption);padding:6px 12px;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:var(--color-panel);color:var(--color-fg);cursor:pointer}
+.cha-btn:hover{background:var(--color-bg-hover)}
+.cha-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:var(--cds-gap-sm)}
+.cha-kpi{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-md)}
+.cha-kpi b{display:block;font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);font-variant-numeric:tabular-nums}
+.cha-kpi span.cha-cap{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.cha-card{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg)}
+.cha-card h2{margin:0 0 var(--cds-gap-sm);font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium)}
+.cha-chart{position:relative;min-height:60px}
+.cha-tip{position:absolute;pointer-events:none;background:var(--cds-surface-popover);border:1px solid var(--cds-border);box-shadow:var(--cds-shadow-popover);color:var(--cds-text-secondary);font-size:var(--cds-font-size-caption);padding:4px 8px;border-radius:var(--cds-radius);white-space:nowrap}
+.cha-wrap{overflow-x:auto}
+.cha table{border-collapse:collapse;width:100%;font-size:var(--cds-font-size-caption);font-variant-numeric:tabular-nums}
+.cha th,.cha td{text-align:right;padding:6px 8px;border-bottom:1px solid var(--color-border-line);white-space:nowrap}
+.cha th.l,.cha td.l{text-align:left}
+.cha th{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium);cursor:pointer;user-select:none}
+.cha tr.pick{cursor:pointer}
+.cha tr.pick:hover td{background:var(--color-bg-hover,rgba(127,127,127,.08))}
+#panD tr.pick td:nth-child(2){color:#2a6fdb;text-decoration:underline;text-underline-offset:2px}
+.cha-note{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin:6px 0 0}
+.cha details{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+a{color:#2a6fdb}
+</style>
+</head>
+<body>
+<div id="app">
+{{BODY}}
+</div>
+<script>{{D3}}</script>
+<script>window.__DATA={{DATA}};</script>
+<script>
+/* Small stand-in for the dashboard engine used on claude.ai: parameters in the URL hash, cached calculations, and re-drawing of data-draw elements. */
+(function(){
+var calcs={},drawFns={},cache={},params={},pending=false,DATA=window.__DATA||{};
+function readHash(){var o={};try{new URLSearchParams(location.hash.replace(/^#/,'')).forEach(function(v,k){o[k]=v;});}catch(e){}return o;}
+function writeHash(){try{var u=new URLSearchParams();for(var k in params){if(params[k]!==''&&params[k]!=null)u.set(k,params[k]);}var s=u.toString();history.replaceState(null,'',location.pathname+location.search+(s?'#'+s:''));}catch(e){}}
+function result(name){
+  if(Object.prototype.hasOwnProperty.call(DATA,name))return {status:'ok',data:DATA[name]};
+  if(cache[name])return cache[name];
+  var c=calcs[name];if(!c)return {status:'error',data:null};
+  var r;
+  try{var args=c.inputs.map(function(n){var g=result(n);if(g.status!=='ok')throw new Error('input '+n+' not ready');return g.data;});r={status:'ok',data:c.fn.apply(null,args)};}
+  catch(e){console.error('calc '+name+':',e);r={status:'error',data:null};}
+  cache[name]=r;return r;
+}
+function run(el){var fn=drawFns[el.getAttribute('data-draw')];if(!fn)return;try{fn(el);}catch(e){console.error('draw '+el.getAttribute('data-draw')+':',e);}}
+function render(){
+  pending=false;
+  var els=[].slice.call(document.querySelectorAll('[data-draw]'));
+  els.forEach(function(el){var n=el.getAttribute('data-draw');if(n==='panCss'||n==='tabs')run(el);});
+  els.forEach(function(el){var n=el.getAttribute('data-draw');if(n==='panCss'||n==='tabs')return;if(!el.getClientRects().length)return;run(el);});
+}
+function schedule(){if(pending)return;pending=true;requestAnimationFrame(render);}
+function changed(){cache={};writeHash();schedule();}
+window.dash={
+  colors:['#2a6fdb','#e8590c','#2f9e44','#9c36b5','#e03131','#0c8599','#c9961a'],
+  params:function(){return params;},
+  setParams:function(o){params=Object.assign({},params,o);for(var k in params){if(params[k]===''||params[k]==null)delete params[k];}changed();},
+  resetParams:function(){params={};changed();},
+  calc:function(name,def){calcs[name]=def;},
+  draw:function(name,fn){drawFns[name]=fn;},
+  data:function(name){return result(name);}
+};
+params=readHash();
+window.addEventListener('hashchange',function(){params=readHash();cache={};schedule();});
+window.__dashStart=function(){render();};
+})();
+</script>
+<script>
+{{APP}}
+window.__dashStart();
+</script>
+</body>
+</html>
